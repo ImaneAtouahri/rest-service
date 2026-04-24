@@ -133,7 +133,8 @@ app.get("/", async (req, res) => {
     }
 
     if (queryEval) {
-      const result = evalExpression(queryEval);
+      const expression = String(queryEval).trim(); // ✅ FIX ADDED HERE
+      const result = evalExpression(expression);
       return sendResult(res, req, result);
     }
 
