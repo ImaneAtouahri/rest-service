@@ -64,16 +64,28 @@ async function getStockPrice(ticker) {
       validateStatus: () => true,
     });
 
-    const meta = data?.chart?.result?.[0]?.meta;
+    const result = data?.chart?.result?.[0];
 
-    const price = meta?.regularMarketPrice ?? meta?.previousClose;
+    if (!result) {
+      throw new Error("No result");
+    }
 
-    if (!price) throw new Error("No price found");
+    const meta = result.meta;
+
+    const price =
+      meta?.regularMarketPrice ??
+      meta?.previousClose;
+
+    if (typeof price !== "number") {
+      throw new Error("Invalid price");
+    }
 
     return price;
 
   } catch (err) {
-    console.log("Stock API failed → fallback used:", symbol);
+    console.log("Stock API failed → deterministic fallback:", symbol);
+
+    //  stable deterministic fallback (not random, not variable)
     return 100;
   }
 }
