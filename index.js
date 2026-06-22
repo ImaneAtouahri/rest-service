@@ -1,5 +1,5 @@
 /**
- * REST Service — HW3
+ * REST Service 
  */
 
 console.log("index.js started");
