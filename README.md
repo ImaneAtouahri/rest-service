@@ -1,4 +1,4 @@
-# HW3 – REST Service
+# REST Service
 
 A Node.js/Express REST service that handles three types of queries via a single GET endpoint.
 
